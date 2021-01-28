@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import imagen from "./assets/cryptomonedas.png";
 import Formulario from "./components/Formulario";
+import Cotizacion from "./components/Cotizacion";
+
 import axios from "axios";
 
 const Contenedor = styled.div`
@@ -40,6 +42,7 @@ const Heading = styled.h1`
 function App() {
   const [moneda, setMoneda] = useState("");
   const [criptomoneda, setCriptomoneda] = useState("");
+  const [resultado, setResultado] = useState({});
 
   useEffect(() => {
     const cotizarCriptomoneda = async () => {
@@ -51,7 +54,7 @@ function App() {
 
       const resultado = await axios.get(url);
 
-      console.log(resultado.data.DISPLAY[criptomoneda][moneda]);
+      setResultado(resultado.data.DISPLAY[criptomoneda][moneda]);
     };
 
     cotizarCriptomoneda();
@@ -65,6 +68,7 @@ function App() {
       <div>
         <Heading>Cotiza Criptomonedas al Instante</Heading>
         <Formulario setMoneda={setMoneda} setCriptomoneda={setCriptomoneda} />
+        <Cotizacion resultado={resultado}/>
       </div>
     </Contenedor>
   );
