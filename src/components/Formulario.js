@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Error from './Error';
 import styled from "@emotion/styled";
 
 import useMoneda from "../hooks/useMoneda";
@@ -73,7 +74,7 @@ const Formulario = () => {
 
   return (
     <form onSubmit={cotizarMoneda}>
-      {error ? "Hay un error" : null}
+      {error ? <Error mensaje="Todos los campos son obligatorios" /> : null}
       <SelectMonedas />
       <SelectCripto />
       <Boton type="submit" value="Calcular" />
